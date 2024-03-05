@@ -29,7 +29,8 @@ Visit https://texverse-hci.github.io/.
 - __OpenAI API__. I learned to use the `text-embedding-3-small` model and chat completion API from OpenAI using Python.
 - __Webpack__. I gained deeper understanding of how modular javascript works. With modular javascript, I can use various npm packages (first `npm install ___` then `import {} from ""`) in the code instead of using `<script>` tags in the html file, which can be faster more efficient. The process is, users write code in the `index.js`, use tools like `webpack` to compile this js file along with other dependent js files into one js file: `main.js` / `bundle.js`. [Tutorial on how to use webpack (along with the Firebase).](https://www.youtube.com/watch?v=rQvOAnNvcNQ)
     - Trick 1: add the devtool inthe `webpack.config.js` allows you to locate the position of the bug in your original `index.js` file rather than somewhere in the unreadable compile js file.
-        ```devtool: 'eval-source-map',
+        ```javascript
+        devtool: 'eval-source-map',
         output: {
             path: path.resolve(__dirname, 'dist'), // output directory
             filename: 'bundle.js', // the compiled JavaScript file
@@ -37,14 +38,15 @@ Visit https://texverse-hci.github.io/.
         },
         ```
     - Trick 2: you have to compile again everytime to see the actual result. In the development stage, you can use `webpack --watch` command, which will automatically re-compile everything upon you make any changes to the `index.js` file. You can also add this to the `package.json file`, so that you only need to run `npm run watch`. Then right click in vscode - `open with live server`.
-        ```
+        ```javascript
         "scripts": {
             "watch": "webpack --watch",
         },
         ```
 
 - __gh-page deployment__. It should be easy to depoly the `index.html` file to the GitHub pages, but it is definitely more complicated to do so when using the Webpack, where the `index.html`, `index.js`, and other CSS files usually locate in the `src` folder. The tool to do this is [gh-pages](https://www.npmjs.com/package/gh-pages), a npm package to publish files to a gh-pages branch on GitHub. Basically it copies the files under the dist folder (including `bundle.js` and `main.js`) to the gh-pages branch. But we still need the index.html and style.css file! To do it, we need `MiniCssExtractPlugin` and `HtmlWebpackPlugin`. Configure the `webpack.config.js` like this:
-    ```const path = require('path');
+    ```javascript
+    const path = require('path');
         const MiniCssExtractPlugin = require('mini-css-extract-plugin');
         const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -76,9 +78,11 @@ Visit https://texverse-hci.github.io/.
         };
     ```
     - Add this line to `package.json` file, and run `npm run deploy` to push changes to the gh-page branch.
-        ```"scripts": {
+        ```javascript
+        "scripts": {
             "deploy": "gh-pages -d dist"
-        },```
+        },
+        ```
     - __To debug this step__, first check the gh-pages branch, whether it has all the files (`index.html`, `bundle.js`, `style.css`, etc.). If the page is not loading correctly, open inspector tool on Chrome, refresh the page, and check the resource loading timeline if there are errors and debug if the resources' paths are incorrect or somehow missing.
     - Tutorial on this: https://survivejs.com/webpack/techniques/deploying/, https://github.com/turingschool-examples/webpack-starter-kit/blob/main/gh-pages-procedure.md
 
