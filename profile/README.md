@@ -1,5 +1,6 @@
 #  TexVerse
 __One Sentence Description__: It's an online knowledge base of HCI textile research 🧶, it walks you through related works in a friendly gallery view of academic papers 🖼️ and has a powerful AI research assistant 🤖 backed with a strong vector database storing context information of past research in this field.
+
 __App Walkthrough__: [https://www.youtube.com/watch?v=ZXdTsl5EoLM](https://www.youtube.com/watch?v=ZXdTsl5EoLM) 
 
 # Technologies used
